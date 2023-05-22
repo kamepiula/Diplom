@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Магазин товаров</title>
+    <link rel="stylesheet" href="style.css">
     <script>
         function start_result(e)
         {
@@ -31,11 +32,49 @@
             oReq.open('GET', url);
             oReq.send();
         }
-        function add()
-        {
-            let x = document.getElementById('2').innerHTML = html;
-            let y = document.getElementById('3').innerHTML = html;
-            document.getElementById('1').innerHTML = html + x + y;
+    
+        function insert_result(e) {
+            start()
+        }
+        function insert_goods() {
+            let oReq = new XMLHttpRequest();
+            oReq.onload = insert_result;
+
+            let name = document.getElementById('2').value;
+            let price = document.getElementById('3').value;
+
+            let url = '/cgi-bin/insert_goods.py?name=' + name + '&price=' + price;
+            oReq.open('GET', url);
+            oReq.send();
+        }
+        function delete_result(e) {
+            start()
+        }
+        function delete_goods() {
+            let oReq = new XMLHttpRequest();
+            oReq.onload = delete_result;
+
+            let id = document.getElementById('4').value;
+            
+
+            let url = '/cgi-bin/delete_goods.py?id=' + id;
+            oReq.open('GET', url);
+            oReq.send();
+        }
+        function update_result(e) {
+            start()
+        }
+        function update_goods() {
+            let oReq = new XMLHttpRequest();
+            oReq.onload = delete_result;
+
+            let id = document.getElementById('4').value;
+            let name = document.getElementById('2').value;
+            let price = document.getElementById('3').value;
+
+            let url = '/cgi-bin/update_goods.py?id='+ id + '&name=' + name + '&price=' + price;
+            oReq.open('GET', url);
+            oReq.send();
         }
     </script>
 </head>
