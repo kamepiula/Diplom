@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Магазин товаров</title>
+    <script>
+        function start_result(e)
+        {
+            let result = e.target.response;
+            // Распаковка двумерного массива из строки в формате JSON
+            let table = JSON.parse(result);
+            //тут составим таблицу
+            html = '<table border="1px" width="300px" align="center">';
+            for(let i of table)
+            {
+                html += '<tr>';
+                for (let j of i)
+                {
+                    html += '<td>' + String(j) + '</td>';
+                }
+                html += "</tr>";
+            }   
+            html += "</table>";
+            document.getElementById('1').innerHTML = html;
+        }
+
+        function start(){
+            let oReq = new XMLHttpRequest();
+            oReq.onload = start_result;
+            let url = '/cgi-bin/getgoods.py';
+            oReq.open('GET', url);
+            oReq.send();
+        }
+        function add()
+        {
+            let x = document.getElementById('2').innerHTML = html;
+            let y = document.getElementById('3').innerHTML = html;
+            document.getElementById('1').innerHTML = html + x + y;
+        }
+    </script>
+</head>
+<body onload="start()">
+    <p id="1"></p>
+    <p>
+        Наименование
+        &nbsp;
+        <input id="2">
+        &nbsp;
+        Цена
+        &nbsp;
+        <input id="3">
+        &nbsp;
+        <button onclick="insert_goods()">Добавить</button>
+    </p>
+    <p>
+        id
+        &nbsp;
+        <input id="4">
+        &nbsp;
+        <button onclick="delete_goods()">Удалить</button>
+    </p>
+    <p>
+        id
+        &nbsp;
+        <input id="5">
+        &nbsp;
+        Наименование
+        &nbsp;
+        <input id="6">
+        &nbsp;
+        Цена
+        &nbsp;
+        <input id="7">
+        &nbsp;
+        <button onclick="update_goods()">Изменить</button>
+    </p>
+</body>
+</html>
