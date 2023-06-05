@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>магазин</title>
+    <script>
+        function start_result(e)
+        {
+            let result = e.target.response;
+            let table = JSON.parse(result);
+            document.getElementById('1').innerHTML= table;
+        }
+
+        function start(){
+            let oReq = new XMLHttpRequest();
+            oReq.onload = start_result;
+            let url = '/cgi-bin/test.py';
+            oReq.open('GET', url);
+            oReq.send();
+        }
+    </script>
+</head>
+<body onload = "start()">
+    <p id="1"></p>
+</body>
+</html>

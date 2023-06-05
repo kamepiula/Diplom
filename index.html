@@ -76,6 +76,22 @@
             oReq.open('GET', url);
             oReq.send();
         }
+        
+        function result_stat_sql(e)
+        {
+            let result = e.target.response;
+            let table = JSON.parse(result);
+            document.getElementById(table[1]).innerHTML = table[0];
+        }
+        function stats_sql(fun_name, result_id)
+        {
+            let oReq = new XMLHttpRequest();
+            oReq.onload = result_stat_sql;
+            let url = '/cgi-bin/getstat_sql.py?fun_name=' + fun_name + '&result_id=' + result_id;
+            oReq.open('GET', url);
+            oReq.send();
+        }
+        
     </script>
 </head>
 <body onload="start()">
@@ -113,5 +129,10 @@
         &nbsp;
         <button onclick="update_goods()">Изменить</button>
     </p>
+    <button id="8" onclick="stats_sql('max', 8)">max(sql)</button>
+    <br>
+    <button id="9" onclick="stats_sql('min', 9)">min(sql)</button>
+    <br>
+    <button id="10" onclick="stats_sql('avg', 10)">avg(sql)</button>
 </body>
 </html>
